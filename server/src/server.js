@@ -37,10 +37,15 @@ app.use((err, req, res, next) => {
 const startServer = async () => {
     try {
         await connectDB();
-        app.listen(ENV.PORT, () => console.log(`Listening on http://localhost:${ENV.PORT}`));
+
+        if (ENV.NODE_ENV !== "production") {
+            app.listen(ENV.PORT, () => console.log(`Listening on http://localhost:${ENV.PORT}`));
+        }
     } catch (error) {
         console.log("Failed to start the server:", error.message);
     }
 };
 
 startServer();
+
+export default app;
